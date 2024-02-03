@@ -1,4 +1,9 @@
 const imagemVisualizacao = document.getElementById('imagem-visualizacao');
+const tituloProduto = document.getElementById('titulo-produto');
+const nomeCor = document.getElementById('nome-cor-selecionada');
+const miniaturaImagem0 = document.getElementById('0-imagem-miniatura');
+const miniaturaImagem1 = document.getElementById('1-imagem-miniatura');
+const miniaturaImagem2 = document.getElementById('2-imagem-miniatura');
 
 const azulInverno = {
   nome: 'Azul-inverno',
@@ -22,13 +27,47 @@ const verdeCipreste = {
 };
 
 const opcoesCores = [azulInverno, estelar, meiaNoite, rosaClaro, verdeCipreste];
+const opcoesTamanho = ['41 mm', '45 mm'];
 
 let imagemSeleciona = 1;
+let tamanhoSelecionado = 1;
+let corSelecionada = 1;
 
 function trocarImagem() {
   const idOpcaoSelecionada = document.querySelector(
     '[name="opcao-imagem"]:checked',
   ).id;
   imagemSeleciona = idOpcaoSelecionada.charAt(0);
-  imagemVisualizacao.src = `./imagens/opcoes-cores/imagens-azul-inverno/imagem-${imagemSeleciona}.jpeg`;
+  imagemVisualizacao.src = `./imagens/opcoes-cores/${opcoesCores[corSelecionada].pasta}/imagem-${imagemSeleciona}.jpeg`;
+}
+
+function trocarTamanho() {
+  const idTamanhoSelecionado = document.querySelector(
+    '[name="opcao-tamanho"]:checked',
+  ).id;
+  tamanhoSelecionado = idTamanhoSelecionado.charAt(0);
+  tituloProduto.innerText = `Pulseira loop esportiva ${opcoesCores[corSelecionada].nome} para caixa de ${opcoesTamanho[tamanhoSelecionado]}`;
+
+  if (opcoesTamanho[tamanhoSelecionado] === '41 mm') {
+    imagemVisualizacao.classList.add('caixa-pequena');
+  } else {
+    imagemVisualizacao.classList.remove('caixa-pequena');
+  }
+}
+
+function trocarCor() {
+  const idOpcaoSelecionada = document.querySelector(
+    '[name="opcao-cor"]:checked',
+  ).id;
+  corSelecionada = idOpcaoSelecionada.charAt(0);
+
+  tituloProduto.innerText = `Pulseira loop esportiva ${opcoesCores[corSelecionada].nome} para caixa de ${opcoesTamanho[tamanhoSelecionado]}`;
+
+  nomeCor.innerText = `Cor - ${opcoesCores[corSelecionada].nome}`;
+
+  miniaturaImagem0.src = `./imagens/opcoes-cores/${opcoesCores[corSelecionada].pasta}/imagem-0.jpeg`;
+  miniaturaImagem1.src = `./imagens/opcoes-cores/${opcoesCores[corSelecionada].pasta}/imagem-1.jpeg`;
+  miniaturaImagem2.src = `./imagens/opcoes-cores/${opcoesCores[corSelecionada].pasta}/imagem-2.jpeg`;
+
+  imagemVisualizacao.src = `./imagens/opcoes-cores/${opcoesCores[corSelecionada].pasta}/imagem-${imagemSeleciona}.jpeg`;
 }
